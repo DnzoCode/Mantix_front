@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Raleway", sans-serif;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+.input-container {
+  @apply relative h-20 w-20 m-2 mb-12;
+}
+
+.input-container.large {
+  @apply relative h-20 w-32 m-2 mb-12;
+}
+
+.input-container input {
+  @apply absolute h-full w-full m-0 cursor-pointer z-10 opacity-0;
+}
+
+.input-container .radio-title {
+  @apply flex flex-col items-center justify-center h-full border-2 border-dark-purple rounded-lg duration-300;
+}
+
+.input-container .icon {
+  @apply text-dark-purple text-4xl;
+}
+
+.input-container label {
+  @apply text-dark-purple text-sm font-bold uppercase;
+}
+.input-container label.large-text {
+  @apply text-dark-purple text-xs font-bold uppercase;
+}
+
+.radio-button:checked + .radio-title {
+  @apply bg-dark-purple shadow-lg;
+  transform: scale(1.1);
+}
+
+.radio-button:hover + .radio-title {
+  @apply shadow-sm;
+}
+
+.radio-button:checked + .radio-title .icon,
+.radio-button:checked + .radio-title label {
+  color: white;
+}
+
+/* Para navegadores basados en WebKit (como Chrome y Safari) */
+/* Ancho del scrollbar */
+::-webkit-scrollbar {
+  width: 5px; /* Ajusta el ancho según tus preferencias */
+}
+
+/* Color del thumb (scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Cambia el color según tus preferencias */
+  border: none;
+  border-radius: 4px; /* Ajusta el radio del borde según tus preferencias */
+  transition: opacity 0.5s; /* Agrega una transición de opacidad para que se desvanezca */
+}
+
+/* Establece la opacidad a 0 (transparente) cuando no se usa */
+::-webkit-scrollbar-thumb:vertical {
+  opacity: 0;
+}
+
+/* Mostrar el scrollbar solo al interactuar con él */
+*::-webkit-scrollbar-thumb:hover {
+  opacity: 1; /* Mostrar el scrollbar cuando se pasa el mouse sobre él */
+}
+
+/* Mostrar el scrollbar cuando se desplaza */
+*::-webkit-scrollbar-thumb:active {
+  opacity: 1;
+}
+
+/* Mostrar el scrollbar solo al hacer "hover" sobre el componente */
+.sidebar:hover::-webkit-scrollbar-thumb {
+  opacity: 1; /* Hace que el scrollbar aparezca cuando el usuario hace "hover" */
+}
+
+/*FULL CALENDAR*/
+.fc-toolbar {
+  @apply mx-2 mt-2;
+}
+
+.fc-col-header {
+  background-color: #cccccc;
+  @apply text-dark-purple mb-0;
+}
+
+.fc .fc-button {
+  @apply bg-dark-purple border-none;
+}
+
+.fc-toolbar-chunk {
+  @apply flex justify-center items-center;
+}
+
+.fc .fc-prev-button,
+.fc .fc-next-button {
+  @apply bg-white text-dark-purple;
+  transition: all 0.3s ease-out;
+}
+
+.fc .fc-prev-button:hover,
+.fc .fc-next-button:hover {
+  background: rgba(133, 133, 133, 0.212);
+  @apply rounded-full text-dark-purple;
+}
+
+.fc .fc-prev-button:focus,
+.fc .fc-next-button:focus {
+  background: rgba(133, 133, 133, 0.212);
+  @apply bg-dark-purple rounded-full text-white;
+}
+
+.fc-daygrid-day-top a {
+  @apply text-dark-purple;
+}
+
+.fc-h-event {
+  border: none;
+  background: none;
+}
+
+.fc-day-today div div a.fc-daygrid-day-number {
+  @apply bg-dark-purple rounded-full text-white mr-2 w-auto;
+}
