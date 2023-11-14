@@ -10,7 +10,7 @@ import EventCard from "./EventCard";
 import apiEvent from "../../Api/Events/event";
 import { AuthUser } from "../../Composables/useHelpers";
 
-function Calendar({ refetch, data }) {
+function Calendar({ refetch, data, role }) {
   const [openModal, setOpenModal] = useState(false);
   const [dateInfo, setDateInfo] = useState([]);
   const [eventByFecha, setEventByFecha] = useState([]);
@@ -63,7 +63,7 @@ function Calendar({ refetch, data }) {
               <CalendarContent eventInfo={eventInfo} />
             )}
             dateClick={async (dateInfo) => {
-              if (userInfo.role.id == 2 || userInfo.role.id == 1) {
+              if (role == 2 || role == 1) {
                 setLoad(true);
                 setOpenModal(true);
                 setDateInfo(dateInfo);

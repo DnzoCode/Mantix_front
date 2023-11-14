@@ -9,10 +9,7 @@ export default function NavBar({ title }) {
         <h1 className="font-bold text-xl">{title}</h1>
         <div className="flex items-center justify-end">
           <BiCalendar className="text-3xl" />
-          <div className="flex items-center">
-            <h1>Hola</h1>
-            <h1>Hola</h1>
-          </div>
+          <div className="flex items-center"></div>
         </div>
       </div>
     </>

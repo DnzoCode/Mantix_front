@@ -123,7 +123,9 @@ function SideBar() {
               </div>
             </Link>
           ))}
-          <button onClick={logOut}>Cerrar Sesion</button>
+          <button onClick={logOut} className="text-white font-bold">
+            Cerrar Sesion
+          </button>
         </div>
 
         <div className="w-full flex flex-col justify-end items-center bottom-0">
