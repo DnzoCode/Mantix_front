@@ -112,9 +112,9 @@ function MaquinaForm({ refetchData }) {
                   className="p-2 bg-green-400 rounded-lg shadow-lg duration-300 px-4 mr-8 hover:shadow-none hover:bg-green-600 disabled:bg-green-200 disabled:shadow-none"
                   disabled={
                     modeForm == "Register"
-                      ? !maquina.maquinaName ||
-                        !maquina.maquinaModelo ||
-                        !maquina.numeroSerial ||
+                      ? !maquina.maquina_name ||
+                        !maquina.maquina_modelo ||
+                        !maquina.numero_serial ||
                         loading
                       : loading || file == null
                   }
@@ -142,9 +142,9 @@ function MaquinaForm({ refetchData }) {
                         </label>
                         <input
                           type="text"
-                          name="maquinaName"
-                          id="maquinaName"
-                          value={maquina.maquinaName}
+                          name="maquina_name"
+                          id="maquina_name"
+                          value={maquina.maquina_name}
                           className="bg-gray-200 p-2 rounded-md"
                           onChange={handleChange}
                         />
@@ -155,9 +155,9 @@ function MaquinaForm({ refetchData }) {
                         </label>
                         <input
                           type="text"
-                          name="maquinaModelo"
-                          id="maquinaModelo"
-                          value={maquina.maquinaModelo}
+                          name="maquina_modelo"
+                          id="maquina_modelo"
+                          value={maquina.maquina_modelo}
                           className="bg-gray-200 p-2 rounded-md"
                           onChange={handleChange}
                         />
@@ -170,9 +170,9 @@ function MaquinaForm({ refetchData }) {
                         </label>
                         <input
                           type="text"
-                          name="numeroSerial"
-                          id="numeroSerial"
-                          value={maquina.numeroSerial}
+                          name="numero_serial"
+                          id="numero_serial"
+                          value={maquina.numero_serial}
                           className="bg-gray-200 p-2 rounded-md"
                           onChange={handleChange}
                         />
