@@ -77,7 +77,7 @@ function LocationForm({ refetchData }) {
           setError({
             ...error,
             isError: true,
-            errorMessage: error.response.data.error,
+            errorMessage: error.response.data.errors,
           });
         });
     }

@@ -44,6 +44,11 @@ const apiWorkOrder = {
       fields
     );
   },
+  downloadPdf: async (id) => {
+    return await axiosInstance.post(
+      `/workOrder/api/v1/DescargarWorkOrderPdf/${id}/`
+    );
+  },
 };
 
 export default apiWorkOrder;

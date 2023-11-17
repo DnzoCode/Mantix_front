@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { apiDay } from "../../Api/Day/day";
 import { toast } from "sonner";
 import apiEvent from "../../Api/Events/event";
+import apiWorkOrder from "../../Api/workOrder/workOrder";
 
 function EventCard({
   eventData,
@@ -41,6 +42,7 @@ function EventCard({
   const [allEventCompleted, setAllEventCompleted] = useState(false);
   const [previousDay, setPreviousDay] = useState({});
   const [actualDay, setActualDay] = useState({});
+  const [pdf, setPdf] = useState(null);
   const MemoizedEventMode = React.memo(EventMode);
   useEffect(() => {
     const isAllCompleted = eventData.every((event) => event.status.id == 6);
@@ -89,6 +91,31 @@ function EventCard({
       ...prevState,
       [eventId]: !prevState[eventId],
     }));
+  };
+  const handleDownloadPdf = async (e, eventId) => {
+    e.preventDefault();
+    try {
+      setLoad(true);
+      await apiWorkOrder.getWorkOrderByEvent(eventId).then(async (response) => {
+        await apiWorkOrder.downloadPdf(response.data.id).then((response) => {
+          const byteCharacters = atob(response.data.workOrderPdf);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "application/pdf" });
+
+          // Crear un enlace para descargar el PDF
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = "Orden de Trabajo.pdf";
+          setLoad(false);
+          // Cambia 'nombre_del_archivo' al nombre que desees
+          link.click();
+        });
+      });
+    } catch (error) {}
   };
 
   const handleDayClose = async () => {
@@ -312,7 +339,7 @@ function EventCard({
                                 previousDay.isClosed != "N" &&
                                 actualDay.isClosed != "S" && (
                                   <button
-                                    className="w-1/2 ml-2 mr-1 p-2 bg-green-500 rounded-md"
+                                    className="w-1/2 ml-2 mr-1 p-2 bg-green-500 rounded-md "
                                     onClick={() => {
                                       handleChangeMode("C", event.id);
                                     }}
@@ -320,6 +347,16 @@ function EventCard({
                                     Completar
                                   </button>
                                 )}
+                              {event.status.id == 6 && (
+                                <button
+                                  className="w-1/2 ml-2 mr-1 p-2 bg-green-700 rounded-md text-white"
+                                  onClick={(e) =>
+                                    handleDownloadPdf(e, event.id)
+                                  }
+                                >
+                                  Descargar Orden de trabajo asociada
+                                </button>
+                              )}
                             </div>
                             {openFunction[event.id] && (
                               <MemoizedEventMode

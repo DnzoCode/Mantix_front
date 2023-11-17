@@ -21,7 +21,7 @@ const apiMaquina = {
   },
   updateMaquina: async (maquinaId, fields) => {
     return await axiosInstance.put(
-      `/maquina/api/v1/maquina/${maquinaId}`,
+      `/maquina/api/v1/maquina/${maquinaId}/`,
       fields
     );
   },
