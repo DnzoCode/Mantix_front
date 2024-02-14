@@ -9,8 +9,10 @@ export default function SelectLocation({
   setObject,
   objectSelect,
   setLoading,
+  defaultLocation,
 }) {
-  const [selectedOptionLocation, setSelectedOptionLocation] = useState(null);
+  const [selectedOptionLocation, setSelectedOptionLocation] =
+    useState(defaultLocation);
 
   const loadLocation = useCallback(async () => {
     if (cachedLocation.has("locations")) {
@@ -36,6 +38,19 @@ export default function SelectLocation({
 
   useEffect(() => {
     loadLocation();
+    if (defaultLocation) {
+      if (typeof defaultLocation === "object") {
+        setSelectedOptionLocation({
+          value: defaultLocation.id,
+          label: defaultLocation.location_name,
+        });
+      } else {
+        setSelectedOptionLocation({
+          value: defaultLocation,
+          label: `Location ${defaultLocation}`,
+        });
+      }
+    }
   }, [loadLocation]);
 
   const listMaquinas = locations?.map((location) => {

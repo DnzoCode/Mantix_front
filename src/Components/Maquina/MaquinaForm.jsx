@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoadComponent from "../Global/LoadComponent";
 import ErrorAlert from "../Global/ErrorAlert";
 import SelectLocation from "../Global/Selects/SelectLocation";
 import apiMaquina from "../../Api/Maquina/maquina";
 import { toast } from "sonner";
 
-function MaquinaForm({ refetchData }) {
+function MaquinaForm({ refetchData, id = null }) {
   const [modeForm, setModeForm] = useState("Register");
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,6 +21,21 @@ function MaquinaForm({ refetchData }) {
     ultimo_mantenimiento: "",
     location: "",
   });
+  useEffect(() => {
+    handleEditShow();
+  }, [id]);
+  const handleEditShow = async () => {
+    if (id != null) {
+      await apiMaquina.getMaquina(id).then((response) => {
+        setMaquina({
+          maquina_name: response.data.maquina_name,
+          maquina_modelo: response.data.maquina_modelo,
+          numero_serial: response.data.numero_serial,
+          location: response.data.location,
+        });
+      });
+    }
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setMaquina({
@@ -133,6 +148,7 @@ function MaquinaForm({ refetchData }) {
                         setObject={setMaquina}
                         objectSelect={maquina}
                         setLoading={setLoading}
+                        defaultLocation={maquina.location}
                       />
                     </div>
                     <div className="w-full flex items-center mt-8">

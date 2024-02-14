@@ -13,6 +13,7 @@ function Maquina() {
   const [loading, setLoading] = useState(true);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
+  const [filterMaquina, setFilterMaquina] = useState("");
 
   useEffect(() => {
     apiMaquina
@@ -34,6 +35,9 @@ function Maquina() {
     setMaquinas(newMaquinasList);
   };
 
+  const handleChangeNombre = (event) => {
+    setFilterMaquina(event.target.value);
+  };
   return (
     <>
       <Layout loading={loading}>
@@ -63,10 +67,31 @@ function Maquina() {
             </button>
           </div>
         </div>
+        <div className="flex flex-col justify-start">
+          <label htmlFor="">Ingrese el nombre de la máquina</label>
+          <input
+            type="text"
+            value={filterMaquina}
+            onChange={handleChangeNombre}
+            placeholder="Ingrese el nombre de la máquina"
+            className="my-4 shadow-md p-2 rounded-md w-1/3"
+          />
+        </div>
         <div className="grid grid-cols-4 grid-rows-2 gap-4">
-          {maquinas?.map((maquina, index) => (
-            <MaquinaCard key={index} maquina={maquina} />
-          ))}
+          {maquinas
+            .filter((maquina) =>
+              maquina.maquina_name
+                .toLowerCase()
+                .includes(filterMaquina.toLowerCase())
+            )
+            .slice(0, 20)
+            .map((maquina, index) => (
+              <MaquinaCard
+                key={index}
+                maquina={maquina}
+                refetchMaquina={refetchMaquina}
+              />
+            ))}
         </div>
       </Layout>
     </>

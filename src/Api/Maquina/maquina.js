@@ -4,6 +4,9 @@ const apiMaquina = {
   getMaquinas: async () => {
     return await axiosInstance.get("/maquina/api/v1/maquina/");
   },
+  getMaquina: async (id) => {
+    return await axiosInstance.get("/maquina/api/v1/maquina/" + id);
+  },
   addMaquinas: async (
     maquina_name,
     maquina_modelo,

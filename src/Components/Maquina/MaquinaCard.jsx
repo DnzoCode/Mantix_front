@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiAward, BiBarcode, BiBookBookmark, BiTask } from "react-icons/bi";
+import MaquinaForm from "./MaquinaForm";
+import Modal from "../Global/Modal/Modal";
 
-function MaquinaCard({ maquina }) {
+function MaquinaCard({ maquina, refetchMaquina }) {
+  const [openModal, setOpenModal] = useState(false);
+  const [id, setId] = useState(null);
   return (
     <>
-      <div className="bg-white shadow-md flex flex-col rounded-lg p-4 ">
+      <Modal
+        setOpenModal={setOpenModal}
+        isOpen={openModal}
+        title={"Editar Maquina " + maquina.maquina_name}
+      >
+        <MaquinaForm refetchData={refetchMaquina} id={id} />
+      </Modal>
+      <div className="bg-white shadow-md shadow-sky-200 flex flex-col rounded-lg p-4 justify-between">
         {/* HEAD CARD */}
         <div className="flex items-center w-full p-2">
           <div className="flex flex-col items-start w-4/5">
@@ -46,11 +57,23 @@ function MaquinaCard({ maquina }) {
         </div>
         {/* FOOTER CARD */}
         <div className="flex items-center justify-around gap-2 mt-4">
+          <button
+            onClick={() => {
+              setOpenModal(true);
+              setId(maquina.id);
+            }}
+            className="bg-orange-700 hover:bg-orange-800 transition-all w-full rounded-lg p-1 flex items-center justify-center text-white"
+          >
+            <BiTask className="mr-2" />
+            <span>Editar</span>
+          </button>
+        </div>
+        {/* <div className="flex items-center justify-around gap-2 mt-4">
           <button className="bg-blue-700 w-full rounded-lg p-1 flex items-center justify-center text-white">
             <BiTask className="mr-2" />
             <span>Historial</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );
